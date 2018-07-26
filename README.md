@@ -265,3 +265,88 @@ var ChatApp = new Vue({
 });
 
 ```
+
+## Vuex `state.html`
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>VueX</title>
+</head>
+<body>
+
+    <div id="root"></div>
+
+</body>
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/vuex"></script>
+
+<script>
+    const store = new Vuex.Store({
+        state: {
+            count: 0,
+            songs: [
+                {name: "Girl like that"},
+                {name: "Like you"},
+                {name: "Be quite"}
+            ]
+        },
+        getters: {
+            getAllSongs: state => {
+                return state.songs;
+            }
+        },
+        mutations: {
+            increment(state) {
+                state.count++
+            },
+            willAddSong: function () {
+                console.log("Will add a song");
+            },
+            addSong: function (state, name) {
+                console.log(`It's name is ${name}.`);
+            }
+        },
+        actions: {
+            addSong: function (context) {
+                context.commit("addSong", "Let it go");
+            }
+        }
+    });
+    store.commit('increment');
+    console.log(store.state.count);
+    store.commit('willAddSong');
+    store.commit('addSong', 'Music');
+    // action addSong
+    store.dispatch('addSong');
+</script>
+
+<!--
+<script>
+    // do some
+    new Vue({
+        // state
+        data() {
+            return {
+                count: 0
+            }
+        },
+
+        // view
+        template: `
+            <div>{{count}}</div>
+        `,
+
+        // actions
+        methods: {
+            increment() {
+                this.count ++
+            }
+        }
+    });
+</script>
+-->
+</html>
+
+```
